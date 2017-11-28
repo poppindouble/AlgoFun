@@ -39,5 +39,5 @@ def main():
 	print(Solution().isPalindrome(-2147483648))
 	print(Solution().isPalindromeNoExtraSpace(1000021))
 
-if __name__ =="__main__":
+if __name__ == "__main__":
 	main()
