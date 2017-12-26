@@ -1,11 +1,15 @@
 import sys
 
+"""
+second solution doesn't work
+it has to be left -> middle -> right 
+"""
+
 class TreeNode:
 	def __init__(self, x):
 		self.val = x
 		self.left = None
 		self.right = None
-
 
 class Solution:
 	def findTarget(self, root, k):
@@ -25,6 +29,20 @@ class Solution:
 			return (True, rightSet)
 		return (False, rightSet)
 
+	# def findTarget(self, root, k):
+	# 	print(self.__helper__(root, k))
+
+	# def __helper__(self, root, k):
+	# 	if not root:
+	# 		return (False, set())
+	# 	found = False
+	# 	leftFound, leftSet = self.__helper__(root.left, k)
+	# 	rightFound, rightSet = self.__helper__(root.right, k)
+	# 	newSet = leftSet | rightSet
+	# 	if k - root.val in newSet:
+	# 		found = True
+	# 	newSet.add(root.val)
+	# 	return (leftFound or found or rightFound, newSet)
 
 def main():
 
