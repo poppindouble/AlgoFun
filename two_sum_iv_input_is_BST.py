@@ -3,6 +3,12 @@ import sys
 """
 second solution doesn't work
 it has to be left -> middle -> right 
+		2
+	1		3
+k = 4
+this one doesn't work for second solution
+becasue if we do left -> right -> middle
+we miss the relation between left and right
 """
 
 class TreeNode:
