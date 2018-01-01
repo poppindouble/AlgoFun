@@ -14,7 +14,7 @@ so we set the result[2] = min(cost[0] + cost[2], cost[1]).
 then we start from the index 3.
 
 solution2:
-define result[i] as the minimum cost to include ith stair(cost[i])
+define result[i] as the minimum cost to STAND on ith stair(cost[i])
 so
 result[i] = min(result[i-1], result[i-2]) + cost[i]
 at the end we just need to return
