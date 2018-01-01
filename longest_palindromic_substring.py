@@ -5,6 +5,9 @@ we are checking if it is palindrome. so complexity is n*(2^n)
 
 second solution is from leetcode, but python can not pass the time limit,
 complexity is n^2
+we need to construct a 2D array, result.
+result[i][j] represent if s[i:j] is a palindrome
+result[i][j]
 
 third solution is the best, everytime if we add a char to the string
 when you increase s by 1 character, if new maxPalindrome includes this new character.
@@ -61,6 +64,8 @@ d, P = 7
 c, P = 7
 b, P = 7
 a, P = 8 (abcddcba)
+
+the last solution is expand from middle
 """
 
 class Solution:
@@ -97,17 +102,36 @@ class Solution:
 	# 				result[row][col] = False
 	# 	return ans
 
+	# def longestPalindrome(self, s):
+	# 	maxPalindromeLen = 1
+	# 	start = 0
+	# 	for index in range(1, len(s)):
+	# 		if index - maxPalindromeLen >= 1 and s[index-maxPalindromeLen-1:index+1] == s[index-maxPalindromeLen-1:index+1][::-1]:
+	# 			start = index - maxPalindromeLen - 1
+	# 			maxPalindromeLen += 2
+	# 		elif index - maxPalindromeLen >= 0 and s[index-maxPalindromeLen:index+1] == s[index-maxPalindromeLen:index+1][::-1]:
+	# 			start = index - maxPalindromeLen
+	# 			maxPalindromeLen += 1
+	# 	return s[start:start+maxPalindromeLen]
+
 	def longestPalindrome(self, s):
-		maxPalindromeLen = 1
-		start = 0
-		for index in range(1, len(s)):
-			if index - maxPalindromeLen >= 1 and s[index-maxPalindromeLen-1:index+1] == s[index-maxPalindromeLen-1:index+1][::-1]:
-				start = index - maxPalindromeLen - 1
-				maxPalindromeLen += 2
-			elif index - maxPalindromeLen >= 0 and s[index-maxPalindromeLen:index+1] == s[index-maxPalindromeLen:index+1][::-1]:
-				start = index - maxPalindromeLen
-				maxPalindromeLen += 1
-		return s[start:start+maxPalindromeLen]
+		start = end = 0
+		for index, c in enumerate(s):
+			len1 = self.__findLengthOfPalindrom__(s, index, index)
+			len2 = self.__findLengthOfPalindrom__(s, index, index+1)
+			if len1 > (end - start + 1) or len2 > (end - start + 1):
+				start = index - (len1 - 1) // 2 if len1 > len2 else index - len2 // 2 + 1
+				end = index + (len1 - 1) // 2 if len1 > len2 else index + len2 // 2
+		return s[start:end+1]
+
+	def __findLengthOfPalindrom__(self, s, centerLeft, centerRight):
+		left = centerLeft
+		right = centerRight
+		while left >= 0 and right < len(s) and s[left] == s[right]:
+			left -= 1
+			right += 1
+		return right - left - 1
+
 
 def main():
 	print(Solution().longestPalindrome("lejyqjcpluiggwlmnumqpxljlcwdsirzwlygexejhvojztcztectzrepsvwssiixfmpbzshpilmojehqyqpzdylxptsbvkgatzdlzphohntysrbrcdgeaiypmaaqilthipjbckkfbxtkreohabrjpmelxidlwdajmkndsdbbaypcemrwlhwbwaljacijjmsaqembgtdcskejplifnuztlmvasbqcyzmvczpkimpbbwxdtviptzaenkbddaauyvqppagvqfpednnckooxzcpuudckakutqyknuqrxjgfdtsxsoztjkqvfvelrklforpjnrbvyyvxigjhkjmxcphjzzilvbjbvwiwnnkbmboiqamgoimujtswdqesighoxsprhnsceshotakvmoxqkqjvbpqucvafiuqwmrlfjpjijbctfupywkbawquchbclgvhxbanybret"))
