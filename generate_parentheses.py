@@ -3,6 +3,8 @@ class Solution:
 		self.res = []
 
 	def generateParenthesis(self, n):
+		if n == 0:
+			return [""]
 		self.__helper__(n, n, "")
 		return self.res
 
@@ -14,10 +16,10 @@ class Solution:
 		if rightCount < leftCount:
 			return
 			
-		if leftCount > 0:
-			self.__helper__(leftCount - 1, rightCount, temp + "(")
 		if rightCount > 0:
 			self.__helper__(leftCount, rightCount - 1, temp + ")")
+		if leftCount > 0:
+			self.__helper__(leftCount - 1, rightCount, temp + "(")
 
 		
 
