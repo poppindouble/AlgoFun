@@ -114,27 +114,42 @@ class Solution:
 	# 			maxPalindromeLen += 1
 	# 	return s[start:start+maxPalindromeLen]
 
+	# def longestPalindrome(self, s):
+	# 	start = end = 0
+	# 	for index, c in enumerate(s):
+	# 		len1 = self.__findLengthOfPalindrom__(s, index, index)
+	# 		len2 = self.__findLengthOfPalindrom__(s, index, index+1)
+	# 		if len1 > (end - start + 1) or len2 > (end - start + 1):
+	# 			start = index - (len1 - 1) // 2 if len1 > len2 else index - len2 // 2 + 1
+	# 			end = index + (len1 - 1) // 2 if len1 > len2 else index + len2 // 2
+	# 	return s[start:end+1]
+
+	# def __findLengthOfPalindrom__(self, s, centerLeft, centerRight):
+	# 	left = centerLeft
+	# 	right = centerRight
+	# 	while left >= 0 and right < len(s) and s[left] == s[right]:
+	# 		left -= 1
+	# 		right += 1
+	# 	return right - left - 1
+
 	def longestPalindrome(self, s):
-		start = end = 0
+		result = ""
 		for index, c in enumerate(s):
-			len1 = self.__findLengthOfPalindrom__(s, index, index)
-			len2 = self.__findLengthOfPalindrom__(s, index, index+1)
-			if len1 > (end - start + 1) or len2 > (end - start + 1):
-				start = index - (len1 - 1) // 2 if len1 > len2 else index - len2 // 2 + 1
-				end = index + (len1 - 1) // 2 if len1 > len2 else index + len2 // 2
-		return s[start:end+1]
-
-	def __findLengthOfPalindrom__(self, s, centerLeft, centerRight):
-		left = centerLeft
-		right = centerRight
-		while left >= 0 and right < len(s) and s[left] == s[right]:
-			left -= 1
-			right += 1
-		return right - left - 1
-
+			offset = 0
+			if index < len(s) - 1 and s[index] == s[index+1]:
+				while (index-offset >= 0 and index+1+offset < len(s) and s[index+1+offset] == s[index-offset]):
+					if len(s[index-offset : index+offset+1+1]) > len(result):
+						result = s[index-offset : index+offset+1+1]
+					offset += 1
+			else:
+				while (index+offset < len(s) and index-offset >= 0 and s[index+offset] == s[index-offset]):
+					if len(s[index-offset : index+offset+1]) > len(result):
+						result = s[index-offset : index+offset+1]
+					offset += 1
+		return result
 
 def main():
-	print(Solution().longestPalindrome("lejyqjcpluiggwlmnumqpxljlcwdsirzwlygexejhvojztcztectzrepsvwssiixfmpbzshpilmojehqyqpzdylxptsbvkgatzdlzphohntysrbrcdgeaiypmaaqilthipjbckkfbxtkreohabrjpmelxidlwdajmkndsdbbaypcemrwlhwbwaljacijjmsaqembgtdcskejplifnuztlmvasbqcyzmvczpkimpbbwxdtviptzaenkbddaauyvqppagvqfpednnckooxzcpuudckakutqyknuqrxjgfdtsxsoztjkqvfvelrklforpjnrbvyyvxigjhkjmxcphjzzilvbjbvwiwnnkbmboiqamgoimujtswdqesighoxsprhnsceshotakvmoxqkqjvbpqucvafiuqwmrlfjpjijbctfupywkbawquchbclgvhxbanybret"))
-
+	# print(Solution().longestPalindrome("lejyqjcpluiggwlmnumqpxljlcwdsirzwlygexejhvojztcztectzrepsvwssiixfmpbzshpilmojehqyqpzdylxptsbvkgatzdlzphohntysrbrcdgeaiypmaaqilthipjbckkfbxtkreohabrjpmelxidlwdajmkndsdbbaypcemrwlhwbwaljacijjmsaqembgtdcskejplifnuztlmvasbqcyzmvczpkimpbbwxdtviptzaenkbddaauyvqppagvqfpednnckooxzcpuudckakutqyknuqrxjgfdtsxsoztjkqvfvelrklforpjnrbvyyvxigjhkjmxcphjzzilvbjbvwiwnnkbmboiqamgoimujtswdqesighoxsprhnsceshotakvmoxqkqjvbpqucvafiuqwmrlfjpjijbctfupywkbawquchbclgvhxbanybret"))
+	print(Solution().longestPalindrome("cbbd"))
 if __name__ == "__main__":
 	main()

@@ -54,23 +54,44 @@ class Solution:
 	# 			result = m
 	# 	return result
 
+	# def maxSubArray(self, nums):
+	# 	i, j = 0, 1
+	# 	temp = nums[0]
+	# 	result = nums[0]
+
+	# 	while j <= len(nums):
+	# 		if j == len(nums):
+	# 			return max(result, temp)
+	# 		if temp < 0:
+	# 			i = j
+	# 			temp = nums[i]
+	# 			j += 1
+	# 		else:
+	# 			temp = temp + nums[j]
+	# 			j += 1
+
+	# 		result = max(result, temp)
+
 	def maxSubArray(self, nums):
-		i, j = 0, 1
-		temp = nums[0]
-		result = nums[0]
+		return self.help(nums, 0, len(nums) - 1)
 
-		while j <= len(nums):
-			if j == len(nums):
-				return max(result, temp)
-			if temp < 0:
-				i = j
-				temp = nums[i]
-				j += 1
-			else:
-				temp = temp + nums[j]
-				j += 1
-
-			result = max(result, temp)
+	def help(self, nums, left, right):
+		if left == right:
+			return nums[left]
+		middle = (left + right) // 2
+		leftMax = self.help(nums, left, middle)
+		rightMax = self.help(nums, middle + 1, right)
+		leftTempMax = nums[middle]
+		rightTempMax = nums[middle + 1]
+		temp = 0
+		for i in range(middle, left - 1, -1):
+			temp += nums[i]
+			leftTempMax = max(leftTempMax, temp)
+		temp = 0
+		for i in range(middle + 1, right + 1):
+			temp += nums[i]
+			rightTempMax = max(rightTempMax, temp)
+		return max(leftMax, rightMax, leftTempMax + rightTempMax)
 
 
 

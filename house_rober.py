@@ -59,6 +59,26 @@ a[i] = max(a[i - 1], a[i - 2] + nums[i])
 """
 
 class Solution():
+	# def rob(self, nums):
+	# 	if not nums:
+	# 		return 0
+	# 	if len(nums) == 1:
+	# 		return nums[0]
+	# 	if len(nums) == 2:
+	# 		return max(nums[0], nums[1])
+
+	# 	m = nums[0]
+	# 	n = max(nums[0], nums[1])
+	# 	record = []
+	# 	for i in nums[2:]:
+	# 		result = max(n, m + i)
+	# 		if result == m + i:
+	# 			record.append(i)
+	# 		m = n
+	# 		n = result
+	# 	print(record)
+	# 	return result
+
 	def rob(self, nums):
 		if not nums:
 			return 0
@@ -69,14 +89,13 @@ class Solution():
 
 		m = nums[0]
 		n = max(nums[0], nums[1])
-		record = []
 		for i in nums[2:]:
-			result = max(n, m + i)
-			if result == m + i:
-				record.append(i)
+			if m == n:
+				result = m + i
+			else:
+				result = n
 			m = n
 			n = result
-		print(record)
 		return result
 
 def main():
